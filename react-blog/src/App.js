@@ -7,6 +7,7 @@ class App extends Component {
     return (
       <div>
         <Link to="/demo">About</Link>
+        {this.props.children}
       </div>
     );
   }
