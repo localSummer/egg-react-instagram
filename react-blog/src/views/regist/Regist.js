@@ -4,7 +4,7 @@ class Regist extends Component {
   render() {
     return (
       <div>
-        sign up
+        注册内容
       </div>
     );
   }
