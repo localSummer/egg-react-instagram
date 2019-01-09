@@ -1,6 +1,10 @@
 import {observable, action} from 'mobx';
 
-class Store {
+class DataStore {
+  constructor(rootStore) {
+    this.rootStore = rootStore;
+  }
+
   @observable
   count = 1;
 
@@ -10,4 +14,4 @@ class Store {
   }
 }
 
-export default new Store();
+export default DataStore;

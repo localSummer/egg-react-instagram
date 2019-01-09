@@ -26,6 +26,7 @@
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
     "file-loader": "2.0.0",
+    "flyio": "^0.6.7",
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
@@ -117,7 +118,12 @@
       "react-app"
     ],
     "plugins": [
-      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
       [
         "import",
         {
@@ -131,6 +137,7 @@
     "@babel/plugin-proposal-decorators": "^7.2.3",
     "babel-plugin-import": "^1.11.0",
     "less": "^3.9.0",
-    "less-loader": "^4.1.0"
+    "less-loader": "^4.1.0",
+    "mobx-react-devtools": "^6.0.3"
   }
 }
