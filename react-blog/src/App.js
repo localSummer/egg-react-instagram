@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import DevTools from 'mobx-react-devtools'
-import { Layout } from 'antd';
-import Headers from './components/headers/Headers';
-import Footers from './components/footers/Footers';
-import './App.less';
-
-const {
-  Content,
-} = Layout;
+import {getData} from './services/api';
+import Nav from '@components/nav/index';
 
 class App extends Component {
+  componentDidMount() {
+    getData().then(response => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
   render() {
     return (
       <div>
-        <Headers/>
-        <Content className="content-wrap">
-          <div className="content">
-            App
-          </div>
-        </Content>
-        <Footers/>
+        <Nav /> 
         <DevTools/>
       </div>
     );

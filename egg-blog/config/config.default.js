@@ -7,7 +7,37 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1545966125040_9743';
 
   // add your config here
-  config.middleware = [];
+  config.middleware = [
+    'authorization',
+  ];
+
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.tpl': 'nunjucks',
+    },
+  };
+
+  config.security = {
+    csrf: false,
+  };
+
+  config.sequelize = {
+    username: 'root',
+    password: 'Anicl0ud',
+    dialect: 'mysql',
+    host: '127.0.0.1',
+    port: 3306,
+    database: 'learn',
+  };
+
+  config.password_secret = 'test123test';
+
+  config.jwt_secret = 'jwttestjwt';
+
+  config.auth_cookie_name = 'jwt_token';
+
+  config.authWhiteList = [ '/api', '/api/v2/login/register', '/api/v2/login' ];
 
   return config;
 };

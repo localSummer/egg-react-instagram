@@ -3,7 +3,6 @@ import {Provider} from 'mobx-react';
 import rootStore from './store/rootStore';
 import {HashRouter} from 'react-router-dom';
 import Routes from './router/index'; // 导入配置的路由
-import './media/styles/main.less';
 
 class Root extends Component {
   render() {
