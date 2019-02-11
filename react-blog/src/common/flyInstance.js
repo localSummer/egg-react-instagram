@@ -1,4 +1,4 @@
-import baseDomain from './config';
+import { baseDomain, redirectUrl } from './config';
 import Fly from 'flyio/dist/npm/fly';
 import { notification } from 'antd';
 
@@ -14,18 +14,17 @@ fly.interceptors.response.use(function(response) {
     notification.error({
       message: response.data.message,
     });
-    return Promise.reject({
-      message: response.data.message,
-    });
+    return Promise.reject(response.data);
   }
 }, function(error) {
+  console.log('error interceptors: ', error);
   try {
     notification.error({
       message: error.response.data.message || '系统异常',
     });
     if (error.response.status === 401) {
       setTimeout(() => {
-        window.location.href = '/login';
+        window.location.href = `${redirectUrl}login`;
       }, 2000);
     }
   } catch(e) {

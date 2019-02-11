@@ -9,7 +9,7 @@ class App extends Component {
       console.log(111, response);
     }).catch(error => {
       console.log(error);
-    })
+    });
   }
 
   render() {

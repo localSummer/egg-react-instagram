@@ -16,6 +16,18 @@ class Nav extends Component {
     });
   };
 
+  handelChange = (e) => {
+    this.setState({
+      search: e.target.value,
+    });
+  };
+
+  searchContent = (event) =>  {
+    if (event.key === 'Enter') {
+      console.log('search api');
+    }
+  }
+
   render() {
     let {focusStatus} = this.state;
     const aboutMenu = (
@@ -36,6 +48,9 @@ class Nav extends Component {
                 <div className={Style['search-content']}>
                   <input type="text" className={Style['search-input']} placeholder="搜索"
                     autoFocus={focusStatus}
+                    onChange={this.handelChange}
+                    onBlur={this.focusSearchInput}
+                    onKeyPress={this.searchContent}
                   />
                   <span className={Style['icon']}></span>
                 </div>

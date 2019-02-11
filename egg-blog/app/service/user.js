@@ -10,23 +10,14 @@ class UserService extends Service {
     user.userId = uuid.v4().replace(/-/g, '');
     const queryResult = await this.hasRegister(user.email);
     if (queryResult) {
-      ctx.status = 200;
-      ctx.body = {
-        flag: false,
-        msg: '邮箱已被使用',
-      };
+      ctx.returnFalseBody(200, '邮箱已被使用');
       return;
     }
     user.password = crypto.createHmac('sha256', app.config.password_secret)
       .update(user.password)
       .digest('hex');
     const userInfo = await ctx.model.User.create(user);
-    ctx.status = 200;
-    ctx.body = {
-      flag: true,
-      msg: '注册成功',
-      userId: userInfo.userId,
-    };
+    ctx.returnBody(200, '注册成功', userInfo.userId);
   }
 
   async hasRegister(email) {

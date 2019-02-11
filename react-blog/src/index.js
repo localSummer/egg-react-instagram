@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import Root from './Root';
 import * as serviceWorker from './serviceWorker';
+import '@media/styles/base.less';
+import './index.less';
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 

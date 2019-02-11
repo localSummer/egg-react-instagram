@@ -3,7 +3,11 @@ const Constroller = require('egg').Controller;
 
 class ApiController extends Constroller {
   async index() {
-    this.ctx.body = 'hi api';
+    this.ctx.body = {
+      flag: true,
+      message: 'hi api',
+      data: null,
+    };
   }
 }
 

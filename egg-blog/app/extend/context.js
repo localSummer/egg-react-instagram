@@ -12,12 +12,20 @@ module.exports = {
     const user = jwt.verify(token, this.app.config.jwt_secret);
     return user;
   },
-  returnBody(status, message, data = {}) {
+  returnBody(status, message, data = null) {
     this.status = status;
     this.body = {
       message,
       data,
       flag: true,
+    };
+  },
+  returnFalseBody(status, message, data = null) {
+    this.status = status;
+    this.body = {
+      message,
+      data,
+      flag: false,
     };
   },
 };

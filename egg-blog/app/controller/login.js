@@ -10,17 +10,13 @@ class LoginController extends Controller {
     if (token) {
       ctx.cookies.set(app.config.auth_cookie_name, token, {
         path: '/',
-        domain: '127.0.0.1',
+        domain: app.config.cookie_domain,
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: false,
       });
-      ctx.status = 200;
-      ctx.body = {
-        msg: '登录成功',
-        flag: true,
-      };
+      ctx.returnBody(200, '登录成功');
     } else {
-      ctx.throw(400, '邮箱或密码错误');
+      ctx.returnBody(400, '邮箱或密码错误');
     }
   }
 

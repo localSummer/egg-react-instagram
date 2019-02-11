@@ -37,7 +37,9 @@ module.exports = appInfo => {
 
   config.auth_cookie_name = 'jwt_token';
 
-  config.authWhiteList = [ '/api', '/api/v2/login/register', '/api/v2/login' ];
+  config.cookie_domain = 'localhost';
+
+  config.authWhiteList = [ '/api/v2/test', '/api/v2/login/register', '/api/v2/login' ];
 
   return config;
 };
