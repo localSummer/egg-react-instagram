@@ -18,7 +18,6 @@ class Nav extends Component {
 
   render() {
     let {focusStatus} = this.state;
-    console.log('focusStatus: ', focusStatus);
     const aboutMenu = (
       <Menu>
         <Menu.Item>关于我</Menu.Item>
