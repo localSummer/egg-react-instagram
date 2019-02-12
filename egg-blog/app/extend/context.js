@@ -10,7 +10,7 @@ module.exports = {
   get user() {
     const token = this.cookies.get(this.app.config.auth_cookie_name);
     const user = jwt.verify(token, this.app.config.jwt_secret);
-    return user;
+    return user; // user为包含userId的json对象
   },
   returnBody(status, message, data = null) {
     this.status = status;

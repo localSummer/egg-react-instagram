@@ -2,10 +2,13 @@ import React, {Component} from 'react';
 import { Form, Icon, Input, Button, notification } from 'antd';
 import Style from './index.module.less';
 import { withRouter } from 'react-router';
-import { login } from '@common/api';
+import { login, getUserInfo } from '@common/api';
+import { inject } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 
 const FormItem = Form.Item;
 
+@inject('rootStore')
 @withRouter
 @Form.create()
 class SignIn extends Component {
@@ -13,7 +16,15 @@ class SignIn extends Component {
 
   onChangeHandler = type => (event) => {
     this.setState({
-      [type+'Empty']: event.target.value !== ''
+      [type + 'Empty']: event.target.value !== '',
+    });
+  };
+
+  getUserinfo = () => {
+    getUserInfo().then(response => {
+      this.props.rootStore.dataStore.saveUserInfo(response.data);
+    }).catch(error => {
+      console.log('error: ', error);
     })
   };
 
@@ -25,6 +36,9 @@ class SignIn extends Component {
           notification.success({
             message: response.message,
           });
+          // 登录成功后，获取用户基础数据
+          this.getUserinfo();
+
           const { history } = this.props;
           setTimeout(() => {
             history.push('/');
@@ -76,6 +90,7 @@ class SignIn extends Component {
             <Button type="primary" htmlType="submit" className={Style['register-form-button']}>登录</Button>
           </FormItem>
         </Form>
+        <DevTools />
       </section>
     );
   }

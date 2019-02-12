@@ -8,9 +8,17 @@ class DataStore {
   @observable
   count = 1;
 
+  @observable
+  userInfo = null;
+
   @action
   changeCount(num) {
     this.count = num;
+  }
+
+  @action.bound
+  saveUserInfo(userInfo) {
+    this.userInfo = userInfo;
   }
 }
 

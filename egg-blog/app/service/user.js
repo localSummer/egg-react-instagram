@@ -34,7 +34,7 @@ class UserService extends Service {
     const { app } = this;
     const existUser = await this.getUserByMail(user.email);
     if (!existUser) {
-      return null;
+      return false;
     }
     const passHash = existUser.password;
     const isEqual = passHash === crypto.createHmac('sha256', app.config.password_secret).update(user.password).digest('hex');
@@ -49,6 +49,14 @@ class UserService extends Service {
     return this.ctx.model.User.findOne({
       where: {
         email,
+      },
+    });
+  }
+
+  async getUserByUserId(userId) {
+    return this.ctx.model.User.findOne({
+      where: {
+        userId,
       },
     });
   }

@@ -19,3 +19,7 @@ export const login = async (data) => {
 export const register = async (data) => {
   return await flyInstance.post('/login/register', data);
 };
+
+export const getUserInfo = async () => {
+  return await flyInstance.get('/user/info');
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import DevTools from 'mobx-react-devtools'
 import Nav from '@components/nav/index';
 import { getData } from '@common/api';
+import DevTools from 'mobx-react-devtools';
 
 class App extends Component {
   componentDidMount() {
@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div>
         <Nav /> 
-        <DevTools/>
+        <DevTools />
       </div>
     );
   }
