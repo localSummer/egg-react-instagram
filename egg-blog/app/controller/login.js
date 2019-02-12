@@ -25,6 +25,12 @@ class LoginController extends Controller {
     const { username, password, email } = ctx.request.body;
     await ctx.service.user.register({ username, password, email });
   }
+
+  async signOut() {
+    const { ctx, app } = this;
+    ctx.cookies.set(app.config.auth_cookie_name, '');
+    ctx.returnBody(200, '退出登录成功');
+  }
 }
 
 module.exports = LoginController;

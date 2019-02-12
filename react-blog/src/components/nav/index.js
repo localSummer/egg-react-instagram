@@ -1,13 +1,43 @@
 import React, { Component } from 'react';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, notification } from 'antd';
 import { Link } from 'react-router-dom';
 import Style from './index.module.less';
+import { inject, observer } from 'mobx-react';
+import { getUserInfo, signout } from '@common/api';
+import { withRouter } from 'react-router-dom';
 
+@inject('rootStore')
+@withRouter
+@observer
 class Nav extends Component {
   state = {
     toggle: true,
     focusStatus: false,
     search: ''
+  };
+
+  componentDidMount() {
+    console.log(this.props);
+    if (!this.props.rootStore.dataStore.userInfo) {
+      getUserInfo().then(response => {
+        this.props.rootStore.dataStore.saveUserInfo(response.data);
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+    window.addEventListener('scroll', this.onScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll = (event) => {
+    if (!event.srcElement.scrollingElement) { return; }
+    let scroll_Y = event.srcElement.scrollingElement.scrollTop;
+    this.setState({
+      toggle: !(scroll_Y > 58)
+    });
   };
 
   focusSearchInput = () => {
@@ -28,12 +58,23 @@ class Nav extends Component {
     }
   }
 
+  signOut = () => {
+    signout().then(response => {
+      notification.success({
+        message: response.message,
+      });
+      this.props.history.push('/login');
+    }).catch(error => {
+      console.log(error);
+    });
+  };
+
   render() {
     let {focusStatus} = this.state;
     const aboutMenu = (
       <Menu>
         <Menu.Item>关于我</Menu.Item>
-        <Menu.Item>退出登录</Menu.Item>
+        <Menu.Item onClick={this.signOut}>退出登录</Menu.Item>
       </Menu>
     );
     return (
