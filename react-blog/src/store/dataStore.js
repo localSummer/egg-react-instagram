@@ -11,6 +11,9 @@ class DataStore {
   @observable
   userInfo = null;
 
+  @observable
+  personalInfo = null;
+
   @action
   changeCount(num) {
     this.count = num;
@@ -19,6 +22,11 @@ class DataStore {
   @action.bound
   saveUserInfo(userInfo) {
     this.userInfo = userInfo;
+  }
+
+  @action.bound
+  savePersonalInfo(personalInfo) {
+    this.personalInfo = personalInfo;
   }
 }
 

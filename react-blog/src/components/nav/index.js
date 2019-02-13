@@ -73,7 +73,9 @@ class Nav extends Component {
     let {focusStatus} = this.state;
     const aboutMenu = (
       <Menu>
-        <Menu.Item>关于我</Menu.Item>
+        <Menu.Item>
+          <Link to={'/about'}>关于我</Link>
+        </Menu.Item>
         <Menu.Item onClick={this.signOut}>退出登录</Menu.Item>
       </Menu>
     );
@@ -107,7 +109,7 @@ class Nav extends Component {
             <Link className={Style['explore']} to={'/'}/>
             <Link className={Style['love']} to={'/'} />
             <Dropdown overlay={aboutMenu}>
-              <Link className={Style['user']} to={'/about'}/>
+              <span className={Style['user']}></span>
             </Dropdown>
           </div>
         </div>
