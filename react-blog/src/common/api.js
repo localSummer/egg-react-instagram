@@ -28,6 +28,7 @@ export const signout = async () => {
 };
 
 // 获取登录用户信息
-export const getUserInfo = async () => {
-  return await flyInstance.get('/user/info');
+export const getUserInfo = async (data = { userId: null}) => {
+  let url = data.userId ? `/user/info?userId=${data.userId}` : '/user/info';
+  return await flyInstance.get(url);
 }
