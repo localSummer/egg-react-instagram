@@ -18,7 +18,7 @@ class Nav extends Component {
 
   componentDidMount() {
     console.log(this.props);
-    if (!this.props.rootStore.dataStore.userInfo) {
+    if (!this.props.rootStore.dataStore.userInfo.userId) {
       getUserInfo().then(response => {
         this.props.rootStore.dataStore.saveUserInfo(response.data);
       }).catch(error => {
