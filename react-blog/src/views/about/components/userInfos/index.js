@@ -32,6 +32,9 @@ class UserInfos extends Component {
 
   render() {
     let { userInfo, isSelf, hasFollow, personalInfo } = this.props;
+    if (!userInfo.userName) {
+      return;
+    }
     return (
       <main>
         <div className={Style['user-infos']}>
