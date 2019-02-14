@@ -32,3 +32,14 @@ export const getUserInfo = async (data = { userId: null}) => {
   let url = data.userId ? `/user/info?userId=${data.userId}` : '/user/info';
   return await flyInstance.get(url);
 }
+
+// 获取用户关注、发帖信息
+export const getPersonalInfo = async (data = { userId: null }) => {
+  let url = data.userId ? `/user/personal?userId=${data.userId}` : '/user/personal';
+  return await flyInstance.get(url);
+}
+
+// 关注
+export const followUser = async data => {
+  return await flyInstance.post('/friend/follow', data);
+}

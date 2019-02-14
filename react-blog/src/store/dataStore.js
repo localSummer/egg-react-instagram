@@ -9,10 +9,24 @@ class DataStore {
   count = 1;
 
   @observable
-  userInfo = null;
+  userInfo = {
+    avatarUrl: '',
+    username: null,
+    account: '',
+    abstract: false,
+    email: '',
+    userId: '',
+  };
 
   @observable
-  personalInfo = null;
+  personalInfo = {
+    topic: {
+      counts: 0,
+      topicList: []
+    },
+    fansCounts: 0,
+    followCounts: 0,
+  };
 
   @action
   changeCount(num) {
