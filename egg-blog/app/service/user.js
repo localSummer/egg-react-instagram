@@ -61,6 +61,13 @@ class UserService extends Service {
     });
   }
 
+  async updateUserInfo(query, updateValue) {
+    const { ctx } = this;
+    return await ctx.model.User.update(updateValue, {
+      where: query,
+    });
+  }
+
   async getUnFollowUserList(userId) {
     const { ctx, app } = this;
     const Op = app.Sequelize.Op;

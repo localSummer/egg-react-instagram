@@ -28,10 +28,53 @@ class TopicService extends Service {
   }
 
   async topicDetailHander(topicId) {
-    // const { ctx } = this;
-    return await this.queryTopicDetail({
+    const { ctx } = this;
+    // 查询贴子详情
+    let topic = await this.queryTopicDetail({
       topicId: +topicId,
     });
+    const userId = topic.userId;
+    const user = await ctx.service.user.getUserByUserId(userId);
+    // 查询贴子全部评论
+    const discuss = await this.queryDiscuss({
+      topicId: +topicId,
+    });
+    // 查询当前登录用户是否已点赞
+    const topicLike = await this.queryTopicLike({
+      topicId: +topicId,
+      userId: ctx.user.userId,
+      status: 1,
+    });
+    // 查询点赞数量
+    const topicLikeCounts = await this.queryTopicLikeCounts({
+      topicId: +topicId,
+      status: 1,
+    });
+    // 处理贴子的评论信息
+    const disscussList = discuss.map(item => {
+      return {
+        replyName: item.replyName,
+        replyContent: item.replyContent,
+        userId: item.userId,
+      };
+    });
+    // 返回贴子的详情
+    const topicDetail = {
+      userInfo: {
+        username: user.username,
+        avatarUrl: user.avatarUrl,
+        userId: user.userId,
+      },
+      topic: {
+        topicImgList: JSON.parse(topic.topicImg),
+        created_at: topic.created_at,
+        topicId,
+        topicLike: !!topicLike,
+        topicLikeCounts: topicLikeCounts.count,
+      },
+      discuss: disscussList,
+    };
+    return topicDetail || {};
   }
 
   async queryDiscuss(query) {
