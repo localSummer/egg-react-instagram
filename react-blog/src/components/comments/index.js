@@ -111,7 +111,7 @@ class Comments extends Component {
         <ul className={`${Style['comments-list']} ${this.props.dialog && Style['fill']}`}>
           {
             this.props.dialog && this.props.discuss.length === 0 ?
-              <li className="content">
+              <li className={Style['content']}>
                   暂时没有评论哦~
               </li>
               : ""
@@ -121,26 +121,26 @@ class Comments extends Component {
                 // 非弹窗展示三个
               if (this.props.dialog || index !== 3) {
                 return (
-                  <li className={`${Style['content']} ${(index > 3 && !this.props.dialog) && Style['hidden']} ${this.state.showMoreComments && Style['no-hidden']}`} key={index}>
-                    <span className={`${Style['username']} ${Style[' u-f-black']}`}>{item.replyName}</span>
-                    <span className={`Style['replay-content'] ${Style[' u-f-black-blod']}`}>{item.replyContent}</span>
+                  <li className={`${Style['content']} ${(index > 3 && !this.props.dialog) && 'hidden'} ${this.state.showMoreComments && 'no-hidden'}`} key={index}>
+                    <span className={`${Style['username']} u-f-black`}>{item.replyName}</span>
+                    <span className={`Style['replay-content'] u-f-black-blod`}>{item.replyContent}</span>
                   </li>
                 )
               } else {
                 // 显示所有部分内容
                 return (
                   <div key={index}>
-                      <li className={`${Style['content']} ${this.state.showMoreComments && Style['no-hidden']}`} >
-                      <span className={`${Style['username']} ${Style[' u-f-black']}`}>{item.replyName}</span>
-                    <span className={`Style['replay-content'] ${Style[' u-f-black-blod']}`}>{item.replyContent}</span>
+                    <li className={`${Style['content']} ${this.state.showMoreComments && 'no-hidden'}`}>
+                      <span className={`${Style['username']} u-f-black`}>{item.replyName}</span>
+                      <span className={`Style['replay-content'] u-f-black-blod`}>{item.replyContent}</span>
+                    </li>
+                    {
+                      this.props.discuss.length > 4 ?
+                        <li className={`${Style['content']} ${Style['show-more']} u-f-lightblack2 ${this.state.showMoreComments && 'hidden'}`}>`
+                          <span onClick={this.showMoreComments}>显示所有</span>
                       </li>
-                      {
-                        this.props.discuss.length > 4 ?
-                          <li className={`${Style['content']} ${Style['show-more']} ${Style['u-f-lightblack2']} ${this.state.showMoreComments && Style['hidden']}`}>
-                            <span onClick={this.showMoreComments}>显示所有</span>
-                        </li>
-                        : ''
-                      }
+                      : ''
+                    }
                   </div>
                 )
               }
