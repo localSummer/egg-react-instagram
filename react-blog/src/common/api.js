@@ -1,4 +1,5 @@
 import flyInstance from './flyInstance';
+import fly from 'flyio/dist/npm/fly';
 
 export const getData = async () => {
   return await flyInstance.get('/test');
@@ -63,3 +64,13 @@ export const getToken = async () => {
 export const friendTopicList = async () => {
   return await flyInstance.get('/topic/friend/list');
 };
+
+// 点赞
+export const likeTopic = async data => {
+  return await flyInstance.post('/topic/like', data);
+}
+
+// 添加评论
+export const addDiscuss = async data => {
+  return await flyInstance.post('/topic/discuss/add', data);
+}

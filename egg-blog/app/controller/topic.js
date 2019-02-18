@@ -73,6 +73,7 @@ class TopicController extends Controller {
 
     // 处理需要查询用户帖子的userId
     const followListUserIds = follower.map(item => item.userId);
+    // 包含自己发布的贴子
     followListUserIds.push(userId);
 
     // 获取每个帖子详情、评论，发帖人信息
