@@ -4,8 +4,9 @@ import PostTopic from './views/index/components/post-topic/index';
 import Style from './App.module.less';
 import DevTools from 'mobx-react-devtools';
 import { inject, observer } from 'mobx-react';
-import { friendList, friendTopicList } from '@common/api';
+import { friendList, friendTopicList, followUser } from '@common/api';
 import DynamicList from './views/index/components/dynamic-list/index';
+import Recommend from './views/index/components/recommond/index';
 
 @inject('rootStore')
 @observer
@@ -52,6 +53,22 @@ class App extends Component {
       this.initTopicList();
     }
   };
+
+  setFollowStatus = async (index, status) => {
+    let followList = this.state.followList;
+    await followUser({
+      userId: followList[index].userId,
+      status: status ? 1 : 0
+    });
+
+    this.setState({
+      followList: update(this.state.followList, { 
+        [index]: { 
+          hasFollow:  { $set: status} 
+        } 
+      })
+    })
+}
 
   render() {
     let { showPostTopic } = this.state;
