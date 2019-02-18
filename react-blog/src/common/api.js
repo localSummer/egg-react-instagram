@@ -43,3 +43,23 @@ export const getPersonalInfo = async (data = { userId: null }) => {
 export const followUser = async data => {
   return await flyInstance.post('/friend/follow', data);
 }
+
+// 未关注列表
+export const friendList = async () => {
+  return await flyInstance.get('/friend/unFollowUserlist');
+}
+
+// 发贴
+export const addTopic = async data => {
+  return await flyInstance.post('/topic/add', data);
+}
+
+// 获取七牛图片上传token
+export const getToken = async () => {
+  return await flyInstance.get('/handle/upload/get-token');
+};
+
+// 获取关注用户贴子列表
+export const friendTopicList = async () => {
+  return await flyInstance.get('/topic/friend/list');
+};

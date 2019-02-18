@@ -30,7 +30,7 @@ class TopicService extends Service {
   async topicDetailHander(topicId) {
     const { ctx } = this;
     // 查询贴子详情
-    let topic = await this.queryTopicDetail({
+    const topic = await this.queryTopicDetail({
       topicId: +topicId,
     });
     const userId = topic.userId;
@@ -75,6 +75,14 @@ class TopicService extends Service {
       discuss: disscussList,
     };
     return topicDetail || {};
+  }
+
+  async queryTopicList(query) {
+    const { ctx } = this;
+    return await ctx.model.Topic.findAll({
+      where: query,
+      order: [[ 'created_at', 'DESC' ]],
+    });
   }
 
   async queryDiscuss(query) {

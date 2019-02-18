@@ -140,6 +140,7 @@
     "babel-plugin-import": "^1.11.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
-    "mobx-react-devtools": "^6.0.3"
+    "mobx-react-devtools": "^6.0.3",
+    "qiniu-js": "^2.5.4"
   }
 }

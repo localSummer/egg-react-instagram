@@ -64,7 +64,29 @@ class TopicController extends Controller {
 
   async friendsTopicList() {
     const { ctx } = this;
-    ctx.returnBody(200, 'Ok');
+    const Op = this.app.Sequelize.Op;
+    const userId = ctx.user.userId;
+    const follower = await ctx.service.follow.findFollow({
+      followedId: userId,
+      status: 1,
+    });
+
+    // 处理需要查询用户帖子的userId
+    const followListUserIds = follower.map(item => item.userId);
+    followListUserIds.push(userId);
+
+    // 获取每个帖子详情、评论，发帖人信息
+    const topics = await ctx.service.topic.queryTopicList({
+      userId: {
+        [Op.in]: followListUserIds,
+      },
+    });
+    const topicList = [];
+    for (const topic of topics) {
+      const item = await ctx.service.topic.topicDetailHander(topic.topicId);
+      topicList.push(item);
+    }
+    topicList && ctx.returnBody(200, '成功', topicList);
   }
 }
 

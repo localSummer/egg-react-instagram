@@ -35,4 +35,7 @@ module.exports = app => {
   // follow
   apiV2Router.post('/friend/follow', controller.friend.follow); // 关注用户
   apiV2Router.get('/friend/unFollowUserlist', controller.friend.notFollowList); // 获取未关注用户列表
+
+  // qiniu token
+  apiV2Router.get('/handle/upload/get-token', controller.handle.getQiniuToken);
 };

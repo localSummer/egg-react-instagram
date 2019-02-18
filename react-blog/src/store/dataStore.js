@@ -1,4 +1,7 @@
-import {observable, action} from 'mobx';
+import {
+  observable,
+  action
+} from 'mobx';
 
 class DataStore {
   constructor(rootStore) {
@@ -28,6 +31,21 @@ class DataStore {
     followCounts: 0,
   };
 
+  @observable
+  topicList = [{
+    userInfo: {
+      avatar: 'https://s10.mogucdn.com/mlcdn/c45406/180930_634a7ck1ikea6k139lbgbi343ha2c_150x150.jpg',
+      username: '',
+      abstract: false
+    },
+    topic: {
+      topicImgList: [],
+      createdAt: '',
+      topicLikeCounts: 0 // 点赞数
+    },
+    discuss: []
+  }];
+
   @action
   changeCount(num) {
     this.count = num;
@@ -41,6 +59,29 @@ class DataStore {
   @action.bound
   savePersonalInfo(personalInfo) {
     this.personalInfo = personalInfo;
+  }
+
+  @action.bound
+  saveTopicList(topicInfo) {
+    this.topicList = topicInfo;
+  }
+
+  @action.bound
+  addTopicComment(commentInfo) {
+    const { index, replyContent, replyName } = commentInfo;
+    let sourceComment = {
+      replyName,
+      replyContent
+    };
+    this.topicList[index].discuss.push(sourceComment);
+  }
+  
+  @action.bound
+  handleTopicLike(topicLikeInfo) {
+    const { index, topicLikeCounts, topicLike } = topicLikeInfo;
+    let targetTopic = this.topicList[index].topic;
+    targetTopic.topicLike = topicLike;
+    topicLike.topicLikeCounts = topicLikeCounts;
   }
 }
 
