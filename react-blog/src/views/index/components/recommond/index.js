@@ -10,33 +10,32 @@ class Recommend extends Component {
     constructor(props){
         super(props);
         this.state = {
-            friend_list: [],
             attach: {
                 isAttach: false,
                 top: 78,
                 left: 0
             },
-            hadSetScrollFn: false
-        }
-        this.setLeftFn = myUtil.debunce(this.setLeftFn, 200)
+            hadSetScrollFn: false,
+        };
+        this.setLeftFn = myUtil.debunce(this.setLeftFn, 200);
     }
 
     componentDidMount () {
-        this.setLeftFn()
+        this.setLeftFn();
         window.addEventListener('resize', this.setLeftFn);
     }
 
     componentWillUnmount(){
-        window.removeEventListener("resize", this.setLeftFn);
-        window.removeEventListener("scroll", this.attachFn);
+        window.removeEventListener('resize', this.setLeftFn);
+        window.removeEventListener('scroll', this.attachFn);
     }
 
     // 设置边缘
     setLeftFn = () => {
         if (!this.refs.recommend) return;
-        let offsetleft = this.refs.recommend.offsetLeft
+        let offsetleft = this.refs.recommend.offsetLeft;
         let attach = Object.assign({}, this.state.attach, {
-            left: offsetleft
+            left: offsetleft,
         });
         this.setState({
             attach,
@@ -53,7 +52,7 @@ class Recommend extends Component {
 
     // 检测是否需要贴附
     attachFn = () => {
-        let isAttach = window.scrollY >= 78
+        let isAttach = window.scrollY >= 78;
         if (isAttach !== this.state.attach.isAttach) {
             let attach = Object.assign({}, this.state.attach, {
                 isAttach,
@@ -92,7 +91,7 @@ class Recommend extends Component {
                     {
                         followList.length === 0
                         ? <p className={Style['notice']}>暂无推荐</p>
-                        : <ul className={Style['friend_photo']}>
+                        : <ul className={Style['friend-photo']}>
                             {
                                 followList.map((item, index) => {
                                     return (
@@ -112,7 +111,7 @@ class Recommend extends Component {
                 </section>
                 <section className={Style['introduce']}>
                     <p>关于我们·支持·新闻中心·API·工作·隐私·条款·目录·个人主页·话题标签·语言</p>
-                    <p className={Style['brand']}>@ 2018 shawzhou</p>
+                    <p className={Style['brand']}>@2019 egg-react</p>
                 </section>
             </div>
         );

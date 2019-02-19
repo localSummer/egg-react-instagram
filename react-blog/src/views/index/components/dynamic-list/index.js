@@ -8,6 +8,14 @@ import { inject, observer } from 'mobx-react';
 @inject('rootStore')
 @observer
 class DynamicList extends Component {
+  topicLikeFn = (likeInfo) => {
+    this.props.rootStore.dataStore.handleTopicLike(likeInfo);
+  };
+  
+  addCommentsFn = (comment) => {
+    this.props.rootStore.dataStore.addTopicComment(comment);
+  };
+
   render() {
     return (
       <div className={Style['dynamic-list']}>
@@ -24,11 +32,13 @@ class DynamicList extends Component {
 
                 {/* 评论区 */}
                 <div className={Style['comments-content']}>
-                  <Comments 
+                  <Comments
+                    topicLikeFn={this.topicLikeFn}
+                    addCommentsFn={this.addCommentsFn}
                     topicIndex={index}
                     createdAt={item.topic.created_at}
-                    discuss={item.discuss} 
-                    topicId={item.topic.topicId} 
+                    discuss={item.discuss}
+                    topicId={item.topic.topicId}
                     topicLike={item.topic.topicLike}
                     dotCounts={item.topic.topicLikeCounts}>
                   </Comments>

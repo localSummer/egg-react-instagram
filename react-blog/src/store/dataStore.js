@@ -41,6 +41,7 @@ class DataStore {
     topic: {
       topicImgList: [],
       createdAt: '',
+      topicLike: false,
       topicLikeCounts: 0 // 点赞数
     },
     discuss: []
@@ -78,10 +79,11 @@ class DataStore {
   
   @action.bound
   handleTopicLike(topicLikeInfo) {
+    console.log('topicLikeInfo: ', topicLikeInfo);
     const { index, topicLikeCounts, topicLike } = topicLikeInfo;
     let targetTopic = this.topicList[index].topic;
     targetTopic.topicLike = topicLike;
-    topicLike.topicLikeCounts = topicLikeCounts;
+    targetTopic.topicLikeCounts = topicLikeCounts;
   }
 }
 

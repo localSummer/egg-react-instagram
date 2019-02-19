@@ -14,7 +14,6 @@ import update from 'react-addons-update';
 @observer
 class App extends Component {
   state = {
-    hasTopic: true,
     followList: [],
     showAttentionList: false,
     showPostTopic: false,
@@ -28,7 +27,7 @@ class App extends Component {
   initFriendList = () => {
     friendList().then(response => {
       let followList = response.data.map(item => {
-        item.hasFollow = false;
+        item.hasFollow = false; // 未关注用户列表增加未关注状态字段
         return item;
       });
       this.setState({
@@ -94,7 +93,7 @@ class App extends Component {
             <div className={Style['home-detail']}>
               <AttentionList followList={this.state.followList} setFollowStatus={this.setFollowStatus} />
               {
-                this.state.followList.length === 0?
+                this.state.followList.length === 0 ?
                   <Recommend togglePostTopic={this.togglePostTopic} followList={this.state.followList} setFollowStatus={this.setFollowStatus} />
                   : ''
               }

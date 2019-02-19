@@ -11,7 +11,6 @@ class Comments extends Component {
     super(props);
     this.state = {
       replyContent: '',
-      selfLove: false,
       topicLike: props.topicLike,
       showMoreComments: false,
     };
@@ -36,7 +35,7 @@ class Comments extends Component {
   }
 
   topicLike = () => {
-    likeTopic({ topicId: this.props.topicId, status: this.props.topicLike? 0 : 1 }).then(response => {
+    likeTopic({ topicId: this.props.topicId, status: this.props.topicLike ? 0 : 1 }).then(response => {
       let dotCounts = 0;
       if (response.data.status){
         dotCounts = this.props.dotCounts + 1;
@@ -44,14 +43,14 @@ class Comments extends Component {
         dotCounts = this.props.dotCounts - 1 >= 0 ? this.props.dotCounts - 1 : 0;
       }
       // 更新点赞状态
-      this.props.rootStore.dataStore.handleTopicLike({
+      this.props.topicLikeFn({
         topicLikeCounts: dotCounts, 
         topicLike: response.data.status === 1,
         index: this.props.topicIndex,
-      })
+      });
     }).catch(error => {
       console.log(error);
-    })
+    });
   };
 
   // 添加评论
@@ -59,26 +58,25 @@ class Comments extends Component {
     if (event.key === 'Enter') {
       if (!this.state.replyContent) {
         notification['error']({
-            message: '请输入评论内容'
+            message: '请输入评论内容',
         });
         return;
       }
 
       addDiscuss({topicId: this.props.topicId, replyContent: this.state.replyContent}).then(response => {
         notification['success']({
-          message: response.message
+          message: response.message,
         });
-        
         // 添加评论
-        this.props.rootStore.dataStore.addTopicComment({
-            replyContent: this.state.replyContent,
-            replyName: this.props.rootStore.dataStore.userInfo.username,
-            index: this.props.topicIndex
+        this.props.addCommentsFn({
+          replyContent: this.state.replyContent,
+          replyName: this.props.rootStore.dataStore.userInfo.username,
+          index: this.props.topicIndex,
         });
   
         // 清空评论
         this.setState({
-            replyContent: ''
+            replyContent: '',
         });
       }).catch(error => {
         console.log(error);
@@ -106,6 +104,7 @@ class Comments extends Component {
   }
   
   render() {
+    // 定义评论列表组件
     const CommentsList = () => {
       return (
         <ul className={`${Style['comments-list']} ${this.props.dialog && Style['fill']}`}>
@@ -118,14 +117,14 @@ class Comments extends Component {
           }
           { 
             this.props.discuss.map((item, index) => {
-                // 非弹窗展示三个
+                // 非弹窗展示三个,弹窗则全展示
               if (this.props.dialog || index !== 3) {
                 return (
                   <li className={`${Style['content']} ${(index > 3 && !this.props.dialog) && 'hidden'} ${this.state.showMoreComments && 'no-hidden'}`} key={index}>
                     <span className={`${Style['username']} u-f-black`}>{item.replyName}</span>
                     <span className={`Style['replay-content'] u-f-black-blod`}>{item.replyContent}</span>
                   </li>
-                )
+                );
               } else {
                 // 显示所有部分内容
                 return (
@@ -133,10 +132,10 @@ class Comments extends Component {
                     <li className={`${Style['content']} ${this.state.showMoreComments && 'no-hidden'}`}>
                       <span className={`${Style['username']} u-f-black`}>{item.replyName}</span>
                       <span className={`Style['replay-content'] u-f-black-blod`}>{item.replyContent}</span>
-                    </li>
+                    </li> 
                     {
                       this.props.discuss.length > 4 ?
-                        <li className={`${Style['content']} ${Style['show-more']} u-f-lightblack2 ${this.state.showMoreComments && 'hidden'}`}>`
+                        <li className={`${Style['content']} ${Style['show-more']} u-f-lightblack2 ${this.state.showMoreComments && 'hidden'}`}>
                           <span onClick={this.showMoreComments}>显示所有</span>
                       </li>
                       : ''
@@ -163,29 +162,29 @@ class Comments extends Component {
           </div>
           <span className={`fl-right ${Style['collect']}`}></span>
         </div>
-          {
-            this.props.dotCounts ?
-            <div className={`${Style['dot-counts']} u-f-black`}>{this.props.dotCounts}次赞</div>
-            :
-            <div className={`${Style['dot-counts']} u-f-black`}>抢先 点赞</div>
-          }
-          {/* 弹窗类型、与列表类型，评论列表位置不同 */}
-          {
-            !this.props.dialog ?
-              <CommentsList />
-              :''
-          }
-          <div className={`${Style['release-time']} u-f-lightblack2`}>{this.handleCommentTime()}</div>
-          <div className={Style['add-comments']}>
-            <input type="text" 
-              ref="textInput"
-              className="u-f-black"
-              placeholder="添加评论..." 
-              onChange={this.handelChange} 
-              value={this.state.replyContent} 
-              onKeyPress={this.handleKeyPress}/>
-            <span className="more"></span>
-          </div>
+        {
+          this.props.dotCounts ?
+          <div className={`${Style['dot-counts']} u-f-black`}>{this.props.dotCounts}次赞</div>
+          :
+          <div className={`${Style['dot-counts']} u-f-black`}>抢先 点赞</div>
+        }
+        {/* 弹窗类型、与列表类型，评论列表位置不同 */}
+        <div className={`${Style['release-time']} u-f-lightblack2`}>{this.handleCommentTime()}</div>
+        {
+          !this.props.dialog ?
+            <CommentsList />
+            : ''
+        }
+        <div className={Style['add-comments']}>
+          <input type="text" 
+            ref="textInput"
+            className="u-f-black"
+            placeholder="添加评论..." 
+            onChange={this.handelChange} 
+            value={this.state.replyContent} 
+            onKeyPress={this.handleKeyPress}/>
+          <span className={Style['more']}></span>
+        </div>
       </div>
     );
   }

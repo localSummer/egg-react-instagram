@@ -10,7 +10,7 @@ class UserInfos extends Component {
     topicCounts: 0,
     fansCounts: 20,
     followCounts: 100,
-    avator: ''
+    avator: '',
   };
 
   goEditAccounts = () => {
@@ -18,22 +18,18 @@ class UserInfos extends Component {
     history.push('/accounts');
   };
 
-  attentionUser = () => {
-    followUser({
+  attentionUser = async () => {
+    await followUser({
       userId: this.props.userInfo.userId,
       status: !this.props.hasFollow ? 1 : 0
-    }).then(response => {
-
-    }).catch(error => {
-      console.log(error);
     });
     this.props.toggleFollowStatus();
   };
 
   render() {
     let { userInfo, isSelf, hasFollow, personalInfo } = this.props;
-    if (!userInfo.userName) {
-      return;
+    if (!userInfo.username) {
+      return null;
     }
     return (
       <main>
@@ -64,7 +60,7 @@ class UserInfos extends Component {
             <p className={Style['user-name']}>
               <b>{userInfo.abstract}</b>
             </p>
-          </div>     
+          </div>
         </div>
       </main>
     );
