@@ -73,3 +73,8 @@ export const likeTopic = async data => {
 export const addDiscuss = async data => {
   return await flyInstance.post('/topic/discuss/add', data);
 }
+
+// 修改密码
+export const updatePersonalInfo = async data => {
+  return await flyInstance.post('/user/update', data);
+};

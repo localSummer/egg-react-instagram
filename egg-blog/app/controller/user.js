@@ -1,5 +1,6 @@
 'use strict';
 const Controller = require('egg').Controller;
+const crypto = require('crypto');
 
 class UserController extends Controller {
   async userInfo() {
@@ -20,7 +21,7 @@ class UserController extends Controller {
   }
 
   async updateUserInfo() {
-    const { ctx } = this;
+    const { ctx, app } = this;
     const contentBody = ctx.request.body;
     const userId = ctx.user.userId;
     // 更新已使用的他人邮箱地址
@@ -33,11 +34,13 @@ class UserController extends Controller {
     }
     // 密码校验不通过
     const result = await ctx.service.user.getUserByUserId(userId);
-    if (contentBody.password && result && result.password !== contentBody.password) {
-      ctx.returnBody(400, '旧密码填写不正确');
-      return;
-    } else if (contentBody.password) {
-      contentBody.password = contentBody.newPassword;
+    if (contentBody.password && result) {
+      const password = crypto.createHmac('sha256', app.config.password_secret).update(contentBody.password).digest('hex');
+      if (result.password !== password) {
+        ctx.returnBody(400, '旧密码填写不正确');
+        return;
+      }
+      contentBody.password = crypto.createHmac('sha256', app.config.password_secret).update(contentBody.newPassword).digest('hex');
     }
     // 执行修改操作
     await ctx.service.user.updateUserInfo({ userId }, contentBody);

@@ -101,7 +101,6 @@ class TopicDialog extends Component {
   };
 
   render() {
-    console.log(11);
     let avatarStyle = {
       width: '40px',
       height: '40px',

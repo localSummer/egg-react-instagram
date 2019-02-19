@@ -19,6 +19,7 @@ class DataStore {
     abstract: false,
     email: '',
     userId: '',
+    sex: '0',
   };
 
   @observable
@@ -84,6 +85,16 @@ class DataStore {
     let targetTopic = this.topicList[index].topic;
     targetTopic.topicLike = topicLike;
     targetTopic.topicLikeCounts = topicLikeCounts;
+  }
+
+  @action.bound
+  changeUserInfo(userInfo) {
+    this.userInfo = Object.assign({}, this.userInfo, userInfo);
+  }
+
+  @action.bound
+  changeAvatarUrl(avatar) {
+    this.userInfo.avatarUrl = avatar;
   }
 }
 
