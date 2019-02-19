@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Style from './index.module.less';
-import { Icon } from 'antd';
 
 class Carousel extends Component {
   state = {

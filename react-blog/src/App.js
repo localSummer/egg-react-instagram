@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react';
 import { friendList, friendTopicList, followUser } from '@common/api';
 import DynamicList from './views/index/components/dynamic-list/index';
 import Recommend from './views/index/components/recommond/index';
+import AttentionList from './views/index/components/attention-list/index';
 import update from 'react-addons-update';
 
 @inject('rootStore')

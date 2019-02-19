@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Style from './index.module.less';
-import myUtil from '@utils/util/index.js';
+import * as myUtil from '@util/index.js';
 import Avatar from '@components/avatar';
 import { inject, observer } from 'mobx-react';
 
@@ -65,7 +65,7 @@ class Recommend extends Component {
     }
 
     render() {
-        const {userInfo } = this.props.rootStore.dataStore.userInfo;
+        const { userInfo } = this.props.rootStore.dataStore;
         const { followList } = this.props;
         let avatarStyle = {
             width: '50px',

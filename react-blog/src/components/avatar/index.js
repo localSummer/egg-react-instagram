@@ -41,9 +41,9 @@ class Avatar extends Component {
       <div className={Style['avatar-content']}>
         <div className={Style['avatar']} onClick={this.goAbout} style={{...this.props.avatarStyle, 'backgroundImage': `url(${userInfo.avatarUrl}`}}></div>
           <div className={Style['user-abstract']}>
-            <div className={`${Style['username']} ${userInfo.username && Style['clear-bg']}`} style={{...this.props.usernameStyle}}>{userInfo.username}</div>
+            <div className={`${Style['username']} ${userInfo.username && 'clear-bg'}`} style={{...this.props.usernameStyle}}>{userInfo.username}</div>
             {/* 设置abstract默认为false，可保持背景色 */}
-            <div className={`${Style['abstract']} ${userInfo.username && Style['clear-bg']}`} style={{...this.props.abstractStyle, 'display': userInfo.abstract===false || userInfo.abstract ?'inline-block':'none'}}>{userInfo.abstract}</div>
+            <div className={`${Style['abstract']} ${userInfo.username && 'clear-bg'}`} style={{...this.props.abstractStyle, 'display': userInfo.abstract === false || userInfo.abstract ? 'inline-block' : 'none'}}>{userInfo.abstract}</div>
           </div>
       </div>
     );

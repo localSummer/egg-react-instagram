@@ -1,5 +1,4 @@
 import flyInstance from './flyInstance';
-import fly from 'flyio/dist/npm/fly';
 
 export const getData = async () => {
   return await flyInstance.get('/test');
@@ -73,9 +72,4 @@ export const likeTopic = async data => {
 // 添加评论
 export const addDiscuss = async data => {
   return await flyInstance.post('/topic/discuss/add', data);
-}
-
-// 添加评论
-export const followUser = async data => {
-  return await flyInstance.post('/friend/follow', data);
 }

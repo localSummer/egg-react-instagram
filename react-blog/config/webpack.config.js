@@ -280,7 +280,7 @@ module.exports = function(webpackEnv) {
         '@components': path.resolve(paths.appSrc, 'components'),
         '@common': path.resolve(paths.appSrc, 'common'),
         '@media': path.resolve(paths.appSrc, 'media'),
-        '@util': path.resolve(path.appSrc, 'util'),
+        '@util': path.resolve(paths.appSrc, 'utils'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
