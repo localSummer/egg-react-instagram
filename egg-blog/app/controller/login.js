@@ -6,6 +6,13 @@ class LoginController extends Controller {
   async loginIn() {
     const { ctx, app } = this;
     const { email, password } = ctx.request.body;
+
+    const validateResult = await ctx.validate('login.signIn', { email, password });
+    if (!validateResult) {
+      // 验证失败必须return阻止后续代码执行，因为validatePlus中resolveError是异步执行的，他是在当前代码流程执行完毕后才执行的
+      return;
+    }
+
     const loginInfo = await ctx.service.user.login({ password, email });
     if (loginInfo.token) {
       ctx.cookies.set(app.config.auth_cookie_name, loginInfo.token, {
