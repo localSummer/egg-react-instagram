@@ -11,12 +11,14 @@ const rule = {
     {
       // eslint-disable-next-line no-unused-vars
       validator(rule, value, callback, source, options) {
-        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+        // const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+        const pattern = /[A-Za-z0-9]{2,16}/;
         if (pattern.test(value)) {
           callback();
           return;
         }
-        callback({ message: '密码最少包含一个大小写字母、数字并且为8-16位' });
+        // callback({ message: '密码最少包含一个大小写字母、数字并且为8-16位' });
+        callback({ message: '密码为2-16位字母和数字组成' });
       },
     },
   ],

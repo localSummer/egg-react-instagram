@@ -78,11 +78,13 @@ class SignIn extends Component {
               getFieldDecorator('password', {
                 rules: [{
                   required: true, message: '请输入您的密码!'
+                }, {
+                  pattern: /[A-Za-z0-9]{2,16}/, message: '密码为2-16位字母和数字组成!'
                 }]
               })(
                 <div className={`${Style['form-input']} ${passwordEmpty && Style['active']}`} onChange={this.onChangeHandler('password')}>
                   <label htmlFor="label-lock">密码</label>
-                  <Input id="label-lock" type="password" prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} />
+                  <Input id="label-lock" onPressEnter={this.handleSubmit} type="password" prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} />
                 </div>
               )
             }
