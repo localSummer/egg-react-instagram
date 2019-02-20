@@ -42,8 +42,8 @@ module.exports = appInfo => {
   config.authWhiteList = [ '/api/v2/test', '/api/v2/login/register', '/api/v2/login' ];
 
   config.qiniu = {
-    accessKey: 'oqRIRophqhd7aCZrP2NpQhtZnVhJMqf1n0QNSYrB',
-    secretKey: 'h75t7twHo3SXSQ2dl4oedOW1J3vqtbptrV-z29I8',
+    accessKey: 'your accessKey',
+    secretKey: 'your secretKey',
     publicBucketDomain: 'http://pn49pgf9r.bkt.clouddn.com',
     options: {
       scope: 'instagram',
