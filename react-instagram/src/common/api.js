@@ -78,3 +78,8 @@ export const addDiscuss = async data => {
 export const updatePersonalInfo = async data => {
   return await flyInstance.post('/user/update', data);
 };
+
+// github授权登录
+export const githubLogin = async () => {
+  return await flyInstance.get('/passport/github');
+}

@@ -39,7 +39,7 @@ module.exports = appInfo => {
 
   config.cookie_domain = 'localhost';
 
-  config.authWhiteList = [ '/api/v2/test', '/api/v2/login/register', '/api/v2/login' ];
+  config.authWhiteList = [ '/api/v2/passport/github', '/api/v2/passport/github/callback', '/api/v2/test', '/api/v2/login/register', '/api/v2/login' ];
 
   config.qiniu = {
     accessKey: 'oqRIRophqhd7aCZrP2NpQhtZnVhJMqf1n0QNSYrB',
@@ -61,6 +61,13 @@ module.exports = appInfo => {
         });
       }
     },
+  };
+
+  config.passportGithub = {
+    key: 'ae19fe76010ef743db3a',
+    secret: 'f32498c10011628ed217ddf4e64fa3a616d14830',
+    // callbackURL: '/passport/github/callback',
+    // proxy: false,
   };
 
   return config;

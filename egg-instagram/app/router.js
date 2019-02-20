@@ -38,4 +38,9 @@ module.exports = app => {
 
   // qiniu token
   apiV2Router.get('/handle/upload/get-token', controller.handle.getQiniuToken);
+
+  // 挂载鉴权路由
+  const github = app.passport.authenticate('github', {});
+  apiV2Router.get('/passport/github', github);
+  apiV2Router.get('/passport/github/callback', github);
 };

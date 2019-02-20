@@ -21,3 +21,13 @@ exports.validatePlus = {
   enable: true,
   package: 'egg-validate-plus',
 };
+
+exports.passport = {
+  enable: true,
+  package: 'egg-passport',
+};
+
+exports.passportGithub = {
+  enable: true,
+  package: 'egg-passport-github',
+};

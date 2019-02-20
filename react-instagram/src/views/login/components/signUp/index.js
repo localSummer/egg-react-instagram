@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, notification } from 'antd';
 import Style from './index.module.less';
-import { register } from '@common/api.js';
+import { register, githubLogin } from '@common/api.js';
 
 const FormItem = Form.Item;
 
@@ -34,6 +34,10 @@ class SignUp extends Component {
     });
   }
 
+  handleGithub = async () => {
+    await githubLogin();
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     let { emailEmpty, usernameEmpty, lockEmpty } = this.state;
@@ -43,8 +47,8 @@ class SignUp extends Component {
           <span className={Style['instagram']}></span>
         </h1>
         <h2 className={Style['slogan']}>注册instagram分享精彩视界</h2>
-        <Button type="primary" htmlType="submit" className={Style['facebook-login']}>
-          使用Facebook登陆
+        <Button type="primary" onClick={this.handleGithub} className={Style['facebook-login']}>
+          使用Github登陆
         </Button>
         <div className={Style['or-line']}>
           <span className={Style['line']}></span>
