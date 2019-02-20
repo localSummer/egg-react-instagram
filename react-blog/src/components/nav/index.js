@@ -62,6 +62,7 @@ class Nav extends Component {
       notification.success({
         message: response.message,
       });
+      localStorage.removeItem('token');
       this.props.history.push('/login');
     }).catch(error => {
       console.log(error);

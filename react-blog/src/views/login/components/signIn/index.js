@@ -36,6 +36,7 @@ class SignIn extends Component {
           notification.success({
             message: response.message,
           });
+          localStorage.setItem('token', response.data);
           // 登录成功后，获取用户基础数据
           this.getUserinfo();
 

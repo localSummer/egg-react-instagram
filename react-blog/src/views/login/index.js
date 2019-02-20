@@ -9,6 +9,12 @@ class Login extends Component {
     isSignUp: true,
   };
 
+  componentWillMount() {
+    if (localStorage.getItem('token')) {
+      this.props.history.push('/');
+    }
+  }
+
   toggleSign = () => {
     this.setState({
         isSignUp: !this.state.isSignUp,

@@ -23,9 +23,10 @@ fly.interceptors.response.use(function(response) {
       message: error.response.data.message || '系统异常',
     });
     if (error.response.status === 401) {
+      localStorage.removeItem('token');
       setTimeout(() => {
         window.location.href = `${redirectUrl}login`;
-      }, 2000);
+      }, 500);
     }
   } catch(e) {
     notification.error({
