@@ -14,6 +14,7 @@ class UserController extends Controller {
       abstract: user.abstract,
       account: user.email.replace(/@.*/, ''),
       mobile: user.mobile,
+      website: user.website,
       sex: user.sex,
       userId: user.userId,
     };

@@ -14,6 +14,7 @@ module.exports = app => {
     avatarUrl: { type: STRING(255), defaultValue: 'https://s11.mogucdn.com/mlcdn/c45406/181105_60bdj928jdhjg9ehhg58hje1212ek_640x640.jpg' },
     mobile: STRING(32),
     prefix: STRING(32),
+    website: { type: STRING(255), allowNull: true },
     abstract: { type: STRING(255), allowNull: true },
     sex: { type: INTEGER, defaultValue: 0 },
     created_at: { type: DATE, defaultValue: NOW },
