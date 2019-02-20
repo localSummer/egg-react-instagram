@@ -134,6 +134,7 @@ class EditAccounts extends Component {
           >
             {getFieldDecorator('website', {
                 rules: [{ required: false, message: '请输个人网站' }],
+                initialValue: userInfo.website, 
             })(
               <AutoComplete
               dataSource={websiteOptions}
