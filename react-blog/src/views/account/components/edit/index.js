@@ -59,7 +59,7 @@ class EditAccounts extends Component {
     notification.success({
         message: response.message,
     });
-    this.props.rootStore.dataStore.changeAvatarUrl(info);
+    this.props.rootStore.dataStore.changeAvatarUrl(avatarUrl);
   }
 
   render() {

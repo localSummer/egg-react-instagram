@@ -29,8 +29,13 @@ class UserController extends Controller {
     if (contentBody.email) {
       const result = await ctx.service.user.getUserByMail(contentBody.email);
       if (result) {
-        ctx.returnBody(400, '该邮箱已被其他账户使用');
-        return;
+        const currentUser = await ctx.service.user.getUserByUserId(userId);
+        if (result.email === currentUser.email) {
+          Reflect.deleteProperty(contentBody, 'email');
+        } else {
+          ctx.returnBody(400, '该邮箱已被其他账户使用');
+          return;
+        }
       }
     }
     // 密码校验不通过

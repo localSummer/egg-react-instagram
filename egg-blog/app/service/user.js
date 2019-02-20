@@ -49,7 +49,7 @@ class UserService extends Service {
   }
 
   async getUserByMail(email) {
-    return this.ctx.model.User.findOne({
+    return await this.ctx.model.User.findOne({
       where: {
         email,
       },
@@ -57,7 +57,7 @@ class UserService extends Service {
   }
 
   async getUserByUserId(userId) {
-    return this.ctx.model.User.findOne({
+    return await this.ctx.model.User.findOne({
       where: {
         userId,
       },
