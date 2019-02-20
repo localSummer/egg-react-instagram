@@ -42,7 +42,10 @@ class UserService extends Service {
       return false;
     }
     const token = jwt.sign({ userId: existUser.userId }, app.config.jwt_secret, { expiresIn: '7d' });
-    return token;
+    return {
+      token,
+      userId: existUser.userId,
+    };
   }
 
   async getUserByMail(email) {

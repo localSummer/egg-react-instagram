@@ -24,7 +24,7 @@ module.exports = appInfo => {
 
   config.sequelize = {
     username: 'root',
-    password: 'your password',
+    password: 'Anicl0ud',
     dialect: 'mysql',
     host: '127.0.0.1',
     port: 3306,
@@ -42,8 +42,8 @@ module.exports = appInfo => {
   config.authWhiteList = [ '/api/v2/test', '/api/v2/login/register', '/api/v2/login' ];
 
   config.qiniu = {
-    accessKey: 'your accessKey',
-    secretKey: 'your secretKey',
+    accessKey: 'oqRIRophqhd7aCZrP2NpQhtZnVhJMqf1n0QNSYrB',
+    secretKey: 'h75t7twHo3SXSQ2dl4oedOW1J3vqtbptrV-z29I8',
     publicBucketDomain: 'http://pn49pgf9r.bkt.clouddn.com',
     options: {
       scope: 'instagram',

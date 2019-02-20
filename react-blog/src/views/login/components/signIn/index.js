@@ -25,7 +25,7 @@ class SignIn extends Component {
       this.props.rootStore.dataStore.saveUserInfo(response.data);
     }).catch(error => {
       console.log('error: ', error);
-    })
+    });
   };
 
   handleSubmit = (e) => {

@@ -11,7 +11,7 @@ class Login extends Component {
 
   toggleSign = () => {
     this.setState({
-        isSignUp: !this.state.isSignUp
+        isSignUp: !this.state.isSignUp,
     });
   }
 
@@ -31,10 +31,10 @@ class Login extends Component {
             }
             <div className={Style['toggle-ways']}>
               {
-                  isSignUp ? 
-                    <span>没有账号？<a className={Style['notice']} onClick={this.toggleSign}>注册</a></span>
-                    : 
-                    <span>有账号了？<a className={Style['notice']} onClick={this.toggleSign}>请登录</a></span>
+                isSignUp ? 
+                  <span>没有账号？<a className={Style['notice']} onClick={this.toggleSign}>注册</a></span>
+                  : 
+                  <span>有账号了？<a className={Style['notice']} onClick={this.toggleSign}>请登录</a></span>
               }
             </div>
           </section>
