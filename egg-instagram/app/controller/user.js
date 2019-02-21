@@ -78,6 +78,16 @@ class UserController extends Controller {
       const item = await ctx.service.topic.topicDetailHander(topic.topicId);
       topicList.push(item);
     }
+    const topicCollectList = [];
+    const topicCollectListIds = await ctx.service.topic.queryTopicCollectList({
+      userId,
+      status: 1,
+    });
+    for (const topic of topicCollectListIds) {
+      const item = await ctx.service.topic.topicDetailHander(topic.topicId);
+      topicCollectList.push(item);
+    }
+
     // 用户粉丝
     const fansCounts = await ctx.service.follow.findFollowCounts({
       userId,
@@ -106,6 +116,7 @@ class UserController extends Controller {
       topic: {
         counts: topics.count,
         topicList,
+        topicCollectList,
       },
       followCounts: followCounts.count,
       fansCounts: fansCounts.count,

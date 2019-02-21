@@ -26,7 +26,8 @@ class DataStore {
   personalInfo = {
     topic: {
       counts: 0,
-      topicList: []
+      topicList: [],
+      topicCollectList: [],
     },
     fansCounts: 0,
     followCounts: 0,

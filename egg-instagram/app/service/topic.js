@@ -130,10 +130,12 @@ class TopicService extends Service {
     });
   }
 
-  async queryTopicCollectCounts(query) {
+  async queryTopicCollectList(query) {
     const { ctx } = this;
-    return await ctx.model.TopicCollect.findAndCountAll({
+    return await ctx.model.TopicCollect.findAll({
+      attributes: [ 'topicId' ],
       where: query,
+      order: [[ 'created_at', 'DESC' ]],
     });
   }
 

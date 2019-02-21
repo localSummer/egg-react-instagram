@@ -66,7 +66,10 @@ class AboutDetail extends Component {
                   followCounts,
                 }
               } />
-              <FavoriteList topicList={topic.topicList}/>
+              <FavoriteList 
+                topicList={topic.topicList}
+                topicCollectList={topic.topicCollectList}
+              />
               <Footer />
           </div>
         </div>
