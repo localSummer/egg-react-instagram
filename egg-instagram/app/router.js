@@ -24,6 +24,7 @@ module.exports = app => {
   apiV2Router.get('/user/info', controller.user.userInfo); // 获取登录用户信息
   apiV2Router.get('/user/personal', controller.user.userPersonalInfo); // 获取用户相关贴子评论点赞信息
   apiV2Router.post('/user/update', controller.user.updateUserInfo); // 更新用户信息
+  apiV2Router.post('/user/third/password', controller.user.updateThirdPassword); // 更新第三方一键登录的密码
 
   // topic
   apiV2Router.post('/topic/add', controller.topic.addTopic); // 添加贴子

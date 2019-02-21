@@ -18,6 +18,7 @@ module.exports = app => {
       email: user.profile._json.email,
       provider: user.provider,
       uid: user.id,
+      thirdPassUpdateStatus: 0,
       avatarUrl: user.photo,
       abstract: user.profile._json.bio,
     });

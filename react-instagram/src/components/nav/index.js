@@ -19,6 +19,10 @@ class Nav extends Component {
   componentDidMount() {
     if (!this.props.rootStore.dataStore.userInfo.userId) {
       getUserInfo().then(response => {
+        if (response.data.updatePass) {
+          this.props.history.replace('/updatePassword');
+          return;
+        }
         this.props.rootStore.dataStore.saveUserInfo(response.data);
       }).catch(error => {
         console.log(error);

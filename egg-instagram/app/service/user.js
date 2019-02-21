@@ -108,5 +108,12 @@ class UserService extends Service {
       },
     });
   }
+
+  async updateThirdPassword(query, updateValue) {
+    const { ctx } = this;
+    return await ctx.model.User.update(updateValue, {
+      where: query,
+    });
+  }
 }
 module.exports = UserService;

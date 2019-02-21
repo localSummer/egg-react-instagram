@@ -7,6 +7,11 @@ class UserController extends Controller {
     const { ctx } = this;
     const userId = ctx.query.userId || ctx.user.userId;
     const user = await ctx.service.user.getUserByUserId(userId);
+    if (user.thirdPassUpdateStatus === 0 && ctx.query.status !== '1') {
+      // 第三方登录强制修改密码重新登录
+      ctx.returnBody(200, '修改密码', { updatePass: true });
+      return;
+    }
     const userInfo = {
       username: user.username,
       email: user.email,
@@ -53,6 +58,7 @@ class UserController extends Controller {
     // 已更改密码，让用户重新登录
     if (contentBody.password) {
       ctx.cookies.set(this.config.auth_cookie_name, '');
+      ctx.session = null;
       ctx.returnBody(200, '密码更新成功，请重新登录');
     } else {
       ctx.returnBody(200, '更新成功');
@@ -106,6 +112,17 @@ class UserController extends Controller {
       isSelf,
       hasFollow: followList.length > 0,
     });
+  }
+
+  async updateThirdPassword() {
+    const { ctx, app } = this;
+    let { password } = ctx.request.body;
+    const userId = ctx.user.userId;
+    password = crypto.createHmac('sha256', app.config.password_secret).update(password).digest('hex');
+    await ctx.service.user.updateThirdPassword({ userId }, { password, thirdPassUpdateStatus: 1 });
+    ctx.cookies.set(this.config.auth_cookie_name, '');
+    ctx.session = null;
+    ctx.returnBody(200, '更新成功');
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Style from './index.module.less';
 import { inject, observer } from 'mobx-react';
-import { updatePersonalInfo } from '@common/api.js'
+import { updatePersonalInfo } from '@common/api.js';
 import { Row, Col, Form, Input, Button , notification } from 'antd';
 import { withRouter } from 'react-router-dom';
 

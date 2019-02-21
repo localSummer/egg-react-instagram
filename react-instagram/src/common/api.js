@@ -28,8 +28,9 @@ export const signout = async () => {
 };
 
 // 获取登录用户信息
-export const getUserInfo = async (data = { userId: null}) => {
-  let url = data.userId ? `/user/info?userId=${data.userId}` : '/user/info';
+export const getUserInfo = async (data = { userId: null, status: null}) => {
+  let url = data.userId ? `/user/info?userId=${data.userId}` : data.status === 1 ? `/user/info?status=${data.status}` : '/user/info';
+
   return await flyInstance.get(url);
 }
 
@@ -77,4 +78,9 @@ export const addDiscuss = async data => {
 // 修改密码
 export const updatePersonalInfo = async data => {
   return await flyInstance.post('/user/update', data);
+};
+
+// 修改第三方一键登录密码
+export const updateThirdPassInfo = async data => {
+  return await flyInstance.post('/user/third/password', data);
 };

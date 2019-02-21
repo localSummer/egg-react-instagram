@@ -17,6 +17,7 @@ module.exports = app => {
     website: { type: STRING(255), allowNull: true },
     provider: { type: STRING(255), allowNull: true },
     uid: { type: STRING(255), allowNull: true },
+    thirdPassUpdateStatus: { type: INTEGER, allowNull: true },
     abstract: { type: STRING(255), allowNull: true },
     sex: { type: INTEGER, defaultValue: 0 },
     created_at: { type: DATE, defaultValue: NOW },
