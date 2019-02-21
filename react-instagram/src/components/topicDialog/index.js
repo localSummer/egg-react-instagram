@@ -18,6 +18,7 @@ let defaultState = {
     index: 0,
     topicImgList: [],
     topicLike: false,
+    topicCollect: false,
     topicLikeCounts: 20
   },
   discuss: [],
@@ -89,7 +90,7 @@ class TopicDialog extends Component {
     });
   };
 
-  // 改变dialog数据，修改上层数据
+  // 改变点赞状态，修改上层数据
   topicLikeFn = (...params) => {
     this.setState({
       topic: Object.assign(
@@ -98,6 +99,17 @@ class TopicDialog extends Component {
         ...params,
       ),
     });
+  };
+
+  // 改变收藏状态，修改上层数据
+  topicCollectFn = (...params) => {
+    this.setState({
+      topic: Object.assign(
+        {}, 
+        this.state.topic,
+        ...params,
+      ),
+    })
   };
 
   render() {
@@ -123,10 +135,12 @@ class TopicDialog extends Component {
               <Comments 
                 topicLikeFn={this.topicLikeFn}
                 addCommentsFn={this.addCommentsFn}
+                topicCollectFn={this.topicCollectFn}
                 createdAt={topic.created_at}
                 topicIndex={topicIndex}
                 discuss={this.state.discuss} 
                 topicId={topic.topicId} 
+                topicCollect={topic.topicCollect}
                 topicLike={topic.topicLike}
                 dialog={true}
                 dotCounts={topic.topicLikeCounts}>

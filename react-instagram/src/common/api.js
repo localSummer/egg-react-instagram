@@ -70,6 +70,11 @@ export const likeTopic = async data => {
   return await flyInstance.post('/topic/like', data);
 }
 
+// 收藏
+export const collectTopic = async data => {
+  return await flyInstance.post('/topic/collect', data);
+};
+
 // 添加评论
 export const addDiscuss = async data => {
   return await flyInstance.post('/topic/discuss/add', data);

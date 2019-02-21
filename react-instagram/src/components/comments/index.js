@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Style from './index.module.less';
 import { notification } from 'antd';
 import { inject, observer } from 'mobx-react';
-import { likeTopic, addDiscuss } from '@common/api';
+import { likeTopic, addDiscuss, collectTopic } from '@common/api';
 
 @inject('rootStore')
 @observer
@@ -46,6 +46,18 @@ class Comments extends Component {
       this.props.topicLikeFn({
         topicLikeCounts: dotCounts, 
         topicLike: response.data.status === 1,
+        index: this.props.topicIndex,
+      });
+    }).catch(error => {
+      console.log(error);
+    });
+  };
+
+  handleCollect = () => {
+    collectTopic({ topicId: this.props.topicId, status: this.props.topicCollect ? 0 : 1 }).then(response => {
+      // 更新收藏状态
+      this.props.topicCollectFn({
+        topicCollect: response.data.status === 1,
         index: this.props.topicIndex,
       });
     }).catch(error => {
@@ -160,7 +172,7 @@ class Comments extends Component {
             <span className={`${Style['favorite']}  ${this.props.topicLike && Style['active']}`} onClick={this.topicLike}></span>
             <span className={Style['comments']} onClick={this.focus}></span>
           </div>
-          <span className={`fl-right ${Style['collect']}`}></span>
+          <span className={`fl-right ${Style['collect']} ${this.props.topicCollect && Style['active']}`} onClick={this.handleCollect}></span>
         </div>
         {
           this.props.dotCounts ?

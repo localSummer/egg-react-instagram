@@ -16,6 +16,10 @@ class DynamicList extends Component {
     this.props.rootStore.dataStore.addTopicComment(comment);
   };
 
+  topicCollectFn = (collectInfo) => {
+    this.props.rootStore.dataStore.handleTopicCollect(collectInfo);
+  };
+
   render() {
     return (
       <div className={Style['dynamic-list']}>
@@ -35,11 +39,13 @@ class DynamicList extends Component {
                   <Comments
                     topicLikeFn={this.topicLikeFn}
                     addCommentsFn={this.addCommentsFn}
+                    topicCollectFn={this.topicCollectFn}
                     topicIndex={index}
                     createdAt={item.topic.created_at}
                     discuss={item.discuss}
                     topicId={item.topic.topicId}
                     topicLike={item.topic.topicLike}
+                    topicCollect={item.topic.topicCollect}
                     dotCounts={item.topic.topicLikeCounts}>
                   </Comments>
                 </div>

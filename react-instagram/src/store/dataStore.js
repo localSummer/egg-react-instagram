@@ -43,6 +43,7 @@ class DataStore {
       topicImgList: [],
       createdAt: '',
       topicLike: false,
+      topicCollect: false,
       topicLikeCounts: 0 // 点赞数
     },
     discuss: []
@@ -80,11 +81,17 @@ class DataStore {
   
   @action.bound
   handleTopicLike(topicLikeInfo) {
-    console.log('topicLikeInfo: ', topicLikeInfo);
     const { index, topicLikeCounts, topicLike } = topicLikeInfo;
     let targetTopic = this.topicList[index].topic;
     targetTopic.topicLike = topicLike;
     targetTopic.topicLikeCounts = topicLikeCounts;
+  }
+
+  @action.bound
+  handleTopicCollect(topicCollectInfo) {
+    const { index, topicCollect } = topicCollectInfo;
+    let targetTopic = this.topicList[index].topic;
+    targetTopic.topicCollect = topicCollect;
   }
 
   @action.bound
