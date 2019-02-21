@@ -31,6 +31,7 @@ module.exports = app => {
   apiV2Router.get('/topic/detail', controller.topic.topicDetail); // 获取贴子详情
   apiV2Router.post('/topic/discuss/add', controller.topic.addDiscuss); // 新增评论
   apiV2Router.post('/topic/like', controller.topic.putLikeTopic); // 点赞
+  apiV2Router.post('/topic/collect', controller.topic.putCollectTopic); // 收藏
   apiV2Router.get('/topic/friend/list', controller.topic.friendsTopicList); // 获取用户关注、粉丝、帖子数量
 
   // follow
@@ -40,7 +41,7 @@ module.exports = app => {
   // qiniu token
   apiV2Router.get('/handle/upload/get-token', controller.handle.getQiniuToken);
 
-  // 挂载鉴权路由
+  // 挂载github鉴权路由
   const github = app.passport.authenticate('github', {
     successRedirect: app.config.passportGithubSuccessRedirect,
   });

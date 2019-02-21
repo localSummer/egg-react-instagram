@@ -4,9 +4,10 @@ const Controller = require('egg').Controller;
 
 class LoginController extends Controller {
   async loginIn() {
-    const { ctx, app } = this;
+    const { ctx } = this;
     const { email, password } = ctx.request.body;
 
+    // 登录表单字段验证
     const validateResult = await ctx.validate('login.signIn', { email, password });
     if (!validateResult) {
       return;

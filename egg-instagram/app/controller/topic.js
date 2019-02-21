@@ -62,6 +62,26 @@ class TopicController extends Controller {
     });
   }
 
+  async putCollectTopic() {
+    const { ctx } = this;
+    const { topicId, status } = ctx.request.body;
+    const userId = ctx.user.userId;
+    const topicCollect = {
+      topicId,
+      userId,
+      status,
+    };
+    const query = {
+      topicId,
+      userId,
+    };
+    // 未曾创建进行创建操作，否则进行更新
+    await ctx.service.topic.putTopicCollect(query, topicCollect);
+    ctx.returnBody(200, '更新成功', {
+      status,
+    });
+  }
+
   async friendsTopicList() {
     const { ctx } = this;
     const Op = this.app.Sequelize.Op;

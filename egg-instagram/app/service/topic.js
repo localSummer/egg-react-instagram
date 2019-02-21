@@ -45,6 +45,12 @@ class TopicService extends Service {
       userId: ctx.user.userId,
       status: 1,
     });
+    // 查询当前用户是否收藏
+    const topicCollect = await this.queryTopicCollect({
+      topicId: +topicId,
+      userId: ctx.user.userId,
+      status: 1,
+    });
     // 查询点赞数量
     const topicLikeCounts = await this.queryTopicLikeCounts({
       topicId: +topicId,
@@ -70,6 +76,7 @@ class TopicService extends Service {
         created_at: topic.created_at,
         topicId,
         topicLike: !!topicLike,
+        topicCollect: !!topicCollect,
         topicLikeCounts: topicLikeCounts.count,
       },
       discuss: disscussList,
@@ -114,6 +121,29 @@ class TopicService extends Service {
     return (result ? await ctx.model.TopicLike.update(topicLike, {
       where: query,
     }) : await ctx.model.TopicLike.create(topicLike));
+  }
+
+  async queryTopicCollect(query) {
+    const { ctx } = this;
+    return await ctx.model.TopicCollect.findOne({
+      where: query,
+    });
+  }
+
+  async queryTopicCollectCounts(query) {
+    const { ctx } = this;
+    return await ctx.model.TopicCollect.findAndCountAll({
+      where: query,
+    });
+  }
+
+  async putTopicCollect(query, topicCollect) {
+    const { ctx } = this;
+    const result = await this.queryTopicCollect(query);
+
+    return (result ? await ctx.model.TopicCollect.update(topicCollect, {
+      where: query,
+    }) : await ctx.model.TopicCollect.create(topicCollect));
   }
 }
 
