@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, notification } from 'antd';
 import Style from './index.module.less';
-import { register, githubLogin } from '@common/api.js';
+import { register } from '@common/api.js';
 
 const FormItem = Form.Item;
 
@@ -34,8 +34,8 @@ class SignUp extends Component {
     });
   }
 
-  handleGithub = async () => {
-    await githubLogin();
+  handleGithub = () => {
+    window.location.href = 'http://127.0.0.1:7001/api/v2/passport/github';
   };
 
   render() {

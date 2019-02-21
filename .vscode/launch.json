@@ -6,7 +6,7 @@
       "name": "Launch Egg",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceRoot}/egg-blog",
+      "cwd": "${workspaceRoot}/egg-instagram",
       "runtimeExecutable": "npm",
       "windows": { "runtimeExecutable": "npm.cmd" },
       "runtimeArgs": [ "run", "debug", "--", "--inspect-brk" ],

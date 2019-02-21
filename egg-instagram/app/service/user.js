@@ -5,7 +5,17 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 class UserService extends Service {
-  async register(user) {
+  async setCookie(token) {
+    const { ctx, app } = this;
+    ctx.cookies.set(app.config.auth_cookie_name, token, {
+      path: '/',
+      domain: app.config.cookie_domain,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: false,
+    });
+  }
+
+  async commonRegister(user) {
     const { ctx, app } = this;
     user.userId = uuid.v4().replace(/-/g, '');
     const queryResult = await this.hasRegister(user.email);
@@ -16,7 +26,12 @@ class UserService extends Service {
     user.password = crypto.createHmac('sha256', app.config.password_secret)
       .update(user.password)
       .digest('hex');
-    const userInfo = await ctx.model.User.create(user);
+    return await ctx.model.User.create(user);
+  }
+
+  async register(user) {
+    const { ctx } = this;
+    const userInfo = await this.commonRegister(user);
     ctx.returnBody(200, '注册成功', userInfo.userId);
   }
 

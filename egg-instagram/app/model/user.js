@@ -15,6 +15,8 @@ module.exports = app => {
     mobile: STRING(32),
     prefix: STRING(32),
     website: { type: STRING(255), allowNull: true },
+    provider: { type: STRING(255), allowNull: true },
+    uid: { type: STRING(255), allowNull: true },
     abstract: { type: STRING(255), allowNull: true },
     sex: { type: INTEGER, defaultValue: 0 },
     created_at: { type: DATE, defaultValue: NOW },

@@ -8,7 +8,6 @@ module.exports = (options, app) => {
       await next(options);
       return;
     }
-
     if (ctx.cookies.get(app.config.auth_cookie_name)) {
       const token = ctx.cookies.get(app.config.auth_cookie_name);
       try {

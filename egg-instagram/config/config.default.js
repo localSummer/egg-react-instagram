@@ -37,7 +37,7 @@ module.exports = appInfo => {
 
   config.auth_cookie_name = 'jwt_token';
 
-  config.cookie_domain = 'localhost';
+  config.cookie_domain = '127.0.0.1';
 
   config.authWhiteList = [ '/api/v2/passport/github', '/api/v2/passport/github/callback', '/api/v2/test', '/api/v2/login/register', '/api/v2/login' ];
 
@@ -66,9 +66,13 @@ module.exports = appInfo => {
   config.passportGithub = {
     key: 'ae19fe76010ef743db3a',
     secret: 'f32498c10011628ed217ddf4e64fa3a616d14830',
-    // callbackURL: '/passport/github/callback',
+    callbackURL: '/api/v2/passport/github/callback',
     // proxy: false,
   };
+
+  config.passportGithubPassword = 'test123';
+
+  config.passportGithubSuccessRedirect = 'http://127.0.0.1:3000/#/';
 
   return config;
 };
