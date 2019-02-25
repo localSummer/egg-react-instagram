@@ -42,6 +42,7 @@ class DataStore {
     },
     topic: {
       topicImgList: [],
+      topicTitle: '',
       createdAt: '',
       topicLike: false,
       topicCollect: false,

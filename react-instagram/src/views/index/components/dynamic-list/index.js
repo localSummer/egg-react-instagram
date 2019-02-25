@@ -30,6 +30,7 @@ class DynamicList extends Component {
                 <header className={Style['header']}>
                   <Avatar userInfo={item.userInfo}/>
                 </header>
+                <h3 className={Style['title']}>{item.topic.topicTitle}</h3>
                 <div className={Style['container']}>
                   <Carousel imageList={item.topic.topicImgList}></Carousel>
                 </div>

@@ -73,6 +73,7 @@ class TopicService extends Service {
       },
       topic: {
         topicImgList: JSON.parse(topic.topicImg),
+        topicTitle: topic.topicTitle,
         created_at: topic.created_at,
         topicId,
         topicLike: !!topicLike,

@@ -58,13 +58,7 @@ class Nav extends Component {
   searchContent = (event) =>  {
     let { search } = this.state;
     if (event.key === 'Enter') {
-      if (!search) {
-        notification.error({
-          message: '搜索内容不能为空',
-        });
-        return;
-      }
-      friendTopicList({search: this.state.search}).then(response => {
+      friendTopicList({search}).then(response => {
         this.props.rootStore.dataStore.saveTopicList(response.data);
       }).catch(error => {
         console.log(error);
