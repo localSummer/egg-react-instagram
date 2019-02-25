@@ -3,7 +3,7 @@ import { Menu, Dropdown, notification } from 'antd';
 import { Link } from 'react-router-dom';
 import Style from './index.module.less';
 import { inject, observer } from 'mobx-react';
-import { getUserInfo, signout } from '@common/api';
+import { getUserInfo, signout, friendTopicList } from '@common/api';
 import { withRouter } from 'react-router-dom';
 
 @inject('rootStore')
@@ -56,8 +56,19 @@ class Nav extends Component {
   };
 
   searchContent = (event) =>  {
+    let { search } = this.state;
     if (event.key === 'Enter') {
-      console.log('search api');
+      if (!search) {
+        notification.error({
+          message: '搜索内容不能为空',
+        });
+        return;
+      }
+      friendTopicList({search: this.state.search}).then(response => {
+        this.props.rootStore.dataStore.saveTopicList(response.data);
+      }).catch(error => {
+        console.log(error);
+      });
     }
   }
 

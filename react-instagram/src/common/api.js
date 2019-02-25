@@ -61,8 +61,9 @@ export const getToken = async () => {
 };
 
 // 获取关注用户贴子列表
-export const friendTopicList = async () => {
-  return await flyInstance.get('/topic/friend/list');
+export const friendTopicList = async (data = {search: null}) => {
+  let url = data.search ? `/topic/friend/list?search=${data.search}` : '/topic/friend/list';
+  return await flyInstance.get(url);
 };
 
 // 点赞

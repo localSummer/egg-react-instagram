@@ -18,7 +18,7 @@ class TopicController extends Controller {
 
   async topicDetail() {
     const { ctx } = this;
-    const { topicId } = ctx.request.query;
+    const { topicId } = ctx.query;
     const topicDetailInfo = await ctx.service.topic.topicDetailHander(topicId);
     ctx.returnBody(200, '成功', topicDetailInfo);
   }
@@ -83,9 +83,10 @@ class TopicController extends Controller {
   }
 
   async friendsTopicList() {
-    const { ctx } = this;
-    const Op = this.app.Sequelize.Op;
+    const { ctx, app } = this;
+    const Op = app.Sequelize.Op;
     const userId = ctx.user.userId;
+    const search = ctx.query.search || null;
     const follower = await ctx.service.follow.findFollow({
       followedId: userId,
       status: 1,
@@ -97,11 +98,19 @@ class TopicController extends Controller {
     followListUserIds.push(userId);
 
     // 获取每个帖子详情、评论，发帖人信息
-    const topics = await ctx.service.topic.queryTopicList({
+    const query = search ? {
       userId: {
         [Op.in]: followListUserIds,
       },
-    });
+      topicTitle: {
+        [Op.like]: search,
+      },
+    } : {
+      userId: {
+        [Op.in]: followListUserIds,
+      },
+    };
+    const topics = await ctx.service.topic.queryTopicList(query);
     const topicList = [];
     for (const topic of topics) {
       const item = await ctx.service.topic.topicDetailHander(topic.topicId);
