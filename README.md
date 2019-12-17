@@ -9,7 +9,7 @@ create-react-app + less + mobx + flyio
 
 - git clone [git@github.com:localSummer/egg-react-instagram.git](git@github.com:localSummer/egg-react-instagram.git)
 
-> 启动后端
+> 启动后端 http://localhost:7000
 - 请确保本地已装mysql，并配置全局变量
 - mysql -u root -p 并输入数据库密码
 - create database learn; 创建learn数据库
@@ -21,7 +21,9 @@ create-react-app + less + mobx + flyio
 - npm i
 - npm run dev
 
-> 启动前端
+> 启动前端 http://localhost:3000
+跨域请求代理 在 `src/setupProxy.js` 配置
+
 - cd react-instagram
 - npm install
 - npm start
